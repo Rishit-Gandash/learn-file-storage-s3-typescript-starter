@@ -66,6 +66,9 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
 
 
   const fileType: string = imageData.type;
+  if(fileType !== "image/jpeg" && fileType !== "image/png") {
+      throw new BadRequestError("Invalid FileType");
+  }
   const fileExtension: string | undefined = fileType.split("/").pop()?.toLowerCase();
   if(fileExtension === undefined) {
       throw new Error("FATAL: could not get extention from filetype");
